@@ -7,6 +7,7 @@ namespace ServiciosWebHTTP.Libreria
     {
         static async Task Main(string[] args)
         {
+            //https://jsonplaceholder.typicode.com/
             Methods solicitud = new Methods();
 
             List<Post> data1 = await solicitud.GetMethod();
