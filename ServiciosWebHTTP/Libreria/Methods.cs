@@ -10,8 +10,10 @@ namespace ServiciosWebHTTP.Libreria
     class Methods
     {
         private JsonSerializerOptions options;
+        private HttpClient client;
         public Methods()
         {
+            client = new HttpClient();
             options = new JsonSerializerOptions()
             {
                 PropertyNameCaseInsensitive = true
@@ -21,8 +23,7 @@ namespace ServiciosWebHTTP.Libreria
         {
             List<Post> Posts;
             
-            string url = "https://jsonplaceholder.typicode.com/posts";
-            HttpClient client = new HttpClient();
+            string url = "https://jsonplaceholder.typicode.com/posts";           
 
             var httpResponse = await client.GetAsync(url);
 
@@ -38,8 +39,7 @@ namespace ServiciosWebHTTP.Libreria
         public async Task<Post> PostMethod()
         {
             Post postResult;
-            string url = "https://jsonplaceholder.typicode.com/posts";
-            HttpClient client = new HttpClient();
+            string url = "https://jsonplaceholder.typicode.com/posts";            
 
             Post post = new Post()
             {
@@ -65,8 +65,7 @@ namespace ServiciosWebHTTP.Libreria
         public async Task<Post> PutMethod()
         {
             Post postResult;
-            string url = "https://jsonplaceholder.typicode.com/posts/99";
-            HttpClient client = new HttpClient();
+            string url = "https://jsonplaceholder.typicode.com/posts/99";           
 
             Post post = new Post()
             {
@@ -91,7 +90,6 @@ namespace ServiciosWebHTTP.Libreria
         public async Task<bool> DeleteMethod()
         {
             string url = "https://jsonplaceholder.typicode.com/posts/99";
-            HttpClient client = new HttpClient();
 
             Post post = new Post()
             {
