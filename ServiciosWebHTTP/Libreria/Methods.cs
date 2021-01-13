@@ -9,6 +9,14 @@ namespace ServiciosWebHTTP.Libreria
 {
     class Methods
     {
+        private JsonSerializerOptions options;
+        public Methods()
+        {
+            options = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            };
+        }
         public async Task<List<Post>> GetMethod()
         {
             List<Post> Posts;
@@ -21,7 +29,7 @@ namespace ServiciosWebHTTP.Libreria
             if (httpResponse.IsSuccessStatusCode)
             {
                 var content = await httpResponse.Content.ReadAsStringAsync();
-                Posts = JsonSerializer.Deserialize<List<Post>>(content);
+                Posts = JsonSerializer.Deserialize<List<Post>>(content, options);
                 return Posts;
             }
             
@@ -35,12 +43,12 @@ namespace ServiciosWebHTTP.Libreria
 
             Post post = new Post()
             {
-                userId = 1,
-                body = "Metodo Post",
-                title = "Hey"
+                UserId = 1,
+                Body = "Metodo Post",
+                Title = "Hey"
             };
 
-            var data = JsonSerializer.Serialize<Post>(post);
+            var data = JsonSerializer.Serialize<Post>(post, options);
             HttpContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var httpResponse = await client.PostAsync(url, content);
@@ -48,7 +56,7 @@ namespace ServiciosWebHTTP.Libreria
             if (httpResponse.IsSuccessStatusCode)
             {
                 var result = await httpResponse.Content.ReadAsStringAsync();
-                postResult = JsonSerializer.Deserialize<Post>(result);
+                postResult = JsonSerializer.Deserialize<Post>(result, options);
                 return postResult;
             }
             return default(Post);
@@ -62,12 +70,12 @@ namespace ServiciosWebHTTP.Libreria
 
             Post post = new Post()
             {
-                userId = 1,
-                body = "Metodo Post",
-                title = "Hey"
+                UserId = 1,
+                Body = "Metodo Put",
+                Title = "Hey"
             };
 
-            var data = JsonSerializer.Serialize<Post>(post);
+            var data = JsonSerializer.Serialize<Post>(post, options);
             HttpContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var httpResponse = await client.PutAsync(url, content);
@@ -75,7 +83,7 @@ namespace ServiciosWebHTTP.Libreria
             if (httpResponse.IsSuccessStatusCode)
             {
                 var result = await httpResponse.Content.ReadAsStringAsync();
-                postResult = JsonSerializer.Deserialize<Post>(result);
+                postResult = JsonSerializer.Deserialize<Post>(result, options);
                 return postResult;
             }
             return default(Post);
@@ -87,9 +95,9 @@ namespace ServiciosWebHTTP.Libreria
 
             Post post = new Post()
             {
-                userId = 1,
-                body = "Metodo Post",
-                title = "Hey"
+                UserId = 1,
+                Body = "Metodo Delete",
+                Title = "Hey"
             };
 
             var httpResponse = await client.DeleteAsync(url);
